@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+option go_package = "example.com/grpc-todo";
+package trade;
+import "buf/validate/validate.proto";
+
+service TradeService {
+  rpc Put(Trade) returns (Empty) {}
+  rpc Call(Trade) returns (Empty) {}
+  rpc TakeProfit(Trade) returns (Empty) {}
+  rpc StopLose(Trade) returns (Empty) {}
+}
+
+message Trade {
+  SymbolIdTrade symbol = 1 [(buf.validate.field).enum.defined_only = true];
+  int64 amount = 2 [(buf.validate.field).int64.gt = 0];
+}
+
+message Empty {}
+
+enum SymbolIdTrade {
+  AAPL = 0;
+  NVDA = 1;
+  TSLA = 2;
+}

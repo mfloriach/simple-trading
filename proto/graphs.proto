@@ -1,0 +1,44 @@
+syntax = "proto3";
+
+option go_package = "example.com/grpc-todo";
+package graphs;
+import "google/protobuf/timestamp.proto";
+import "buf/validate/validate.proto";
+
+
+service GraphService {
+  rpc GetBySymbol(Symbol) returns (Candles) {}
+  rpc GetBySymbolStream(Symbol) returns (stream Candle) {}
+}
+
+message Candles {
+  repeated Candle candles = 1;
+}
+
+message Candle {
+  SymbolIdGraphs symbol = 1 [(buf.validate.field).enum.defined_only = true];
+  uint32 open = 2; 
+  uint32 high = 3;
+  uint32 low = 4;
+  uint32 close = 5;
+  TimeRange time_range = 6;
+  google.protobuf.Timestamp created_at = 7;
+}
+
+message Symbol {
+  SymbolIdGraphs id = 1 [(buf.validate.field).enum.defined_only = true];
+  TimeRange time_range = 2;
+}
+
+enum TimeRange {
+  TIME_RANGE_SECOND = 0;
+  TIME_RANGE_MINUTE = 1;
+  TIME_RANGE_FIVE_MINUTES = 2;
+  TIME_RANGE_DAY = 3;
+}
+
+enum SymbolIdGraphs {
+  APPL = 0;
+  NVDA = 1;
+  TSLA = 2;
+}
