@@ -37,7 +37,6 @@ type TradeService interface {
 
 type TradeRepository interface {
 	Set(context.Context, Trade) error
-	GetByUserID(context.Context, int, Action) ([]Trade, error)
 }
 
 type TradeRepositoryAdmin interface {

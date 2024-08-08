@@ -1,4 +1,5 @@
 # Simple Trading Platform
+Simple platform for trading written in golang, grpc and time base database. 
 
 ## Tools
 * Buff
@@ -19,4 +20,7 @@ $ go run server/cmd/grpc/main.go
 ```
 
 ## Docs
+```
+$ docker compose up -d
+```
 [API](http://localhost:8081)

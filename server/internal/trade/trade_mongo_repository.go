@@ -2,7 +2,6 @@ package trade
 
 import (
 	"context"
-	"fmt"
 
 	"example.com/grpc-todo/utils"
 	"go.mongodb.org/mongo-driver/bson"
@@ -25,15 +24,9 @@ func NewTradeAdminCacheRepository() TradeRepositoryAdmin {
 }
 
 func (s *cacheRepository) Set(ctx context.Context, t Trade) error {
-	fmt.Println(t)
 	_, err := s.collection.InsertOne(ctx, t)
 
 	return err
-}
-
-func (s *cacheRepository) GetByUserID(ctx context.Context, userID int, action Action) ([]Trade, error) {
-	var results []Trade
-	return results, nil
 }
 
 func (s *cacheRepository) Get(ctx context.Context, symbol string, action Action) ([]Trade, error) {
